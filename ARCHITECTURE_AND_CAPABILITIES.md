@@ -149,7 +149,7 @@ classDiagram
         +withSingleGoal(Goal): Agent
         +pruneTo(GoapPlanningSystem): Agent
     }
-    
+
     class Action {
         +String name
         +String description
@@ -162,7 +162,7 @@ classDiagram
         +ActionQos qos
         +run(ProcessContext): Any
     }
-    
+
     class Goal {
         +String name
         +String description
@@ -173,13 +173,13 @@ classDiagram
         +withPrecondition(String): Goal
         +withValue(Double): Goal
     }
-    
+
     class Condition {
         +String name
         +String description
         +evaluate(ProcessContext): ConditionDetermination
     }
-    
+
     class AgentPlatform {
         +deploy(Agent): AgentPlatform
         +runAgentFrom(Agent, ProcessOptions, Map): AgentProcess
@@ -189,20 +189,21 @@ classDiagram
         +actions: List~Action~
         +createChildProcess(Agent, AgentProcess): AgentProcess
     }
-    
-    Agent ||--o{ Action
-    Agent ||--o{ Goal
-    Agent ||--o{ Condition
-    AgentPlatform ||--o{ Agent
-    
+
     class IoBinding {
         +String name
         +String type
         +String value
     }
-    
-    Action ||--o{ IoBinding
-    Goal ||--o{ IoBinding
+
+    %% Relationships (multiplicity / aggregation)
+    Agent        "1"  o--  "*"   Action
+    Agent        "1"  o--  "*"   Goal
+    Agent        "1"  o--  "*"   Condition
+    AgentPlatform "1" o--  "*"   Agent
+    Action       "1"  o--  "*"   IoBinding
+    Goal         "1"  o--  "*"   IoBinding
+
 ```
 
 ### GOAP Planning Process
